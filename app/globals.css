@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #020202;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+@media (prefers-color-scheme: dark) {
+
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("/fonts/PretendardVariable.ttf") format("truetype");
+  font-weight: 100 900; /* Variable font라면 범위로 지정 */
+  font-style: normal;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Pretendard;
+}

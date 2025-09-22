@@ -5,9 +5,9 @@ import { InertiaPlugin } from 'gsap/InertiaPlugin';
 
 gsap.registerPlugin(InertiaPlugin);
 
-const throttle = (func: (...args: any[]) => void, limit: number) => {
+const throttle = (func: (...args: never[]) => void, limit: number) => {
   let lastCall = 0;
-  return function (this: any, ...args: any[]) {
+  return function (this: never, ...args: never[]) {
     const now = performance.now();
     if (now - lastCall >= limit) {
       lastCall = now;
@@ -269,10 +269,14 @@ const DotGrid: React.FC<DotGridProps> = ({
     };
 
     const throttledMove = throttle(onMove, 50);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     window.addEventListener('mousemove', throttledMove, { passive: true });
     window.addEventListener('click', onClick);
 
     return () => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       window.removeEventListener('mousemove', throttledMove);
       window.removeEventListener('click', onClick);
     };

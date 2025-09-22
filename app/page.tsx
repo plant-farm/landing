@@ -186,7 +186,7 @@ type firstBlockType = {
   selectedBlock: number;
   setSelectedBlock: (x: number) => void;
   scrollVal: number;
-  setScrollVal: number;
+  setScrollVal: (x: number) => void;
 }
 
 const FirstBlock = ({ selectedBlock, setSelectedBlock, scrollVal, setScrollVal }: firstBlockType) => {

@@ -2,12 +2,12 @@
 
 import dynamic from "next/dynamic";
 import { useState } from "react";
+import { ApexOptions } from "apexcharts";
 
-// ApexCharts는 SSR 지원이 약하므로 dynamic import로 클라이언트 사이드 전용으로 불러와야 합니다.
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 export default function ApexChartExample() {
-  const [options] = useState({
+  const [options] = useState<ApexOptions>({
     chart: {
       type: "area",
       height: 350,

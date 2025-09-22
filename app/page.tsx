@@ -1,153 +1,207 @@
+'use client'
+
 import Image from "next/image";
+import Scalable from "@/app/scalable";
+import {useEffect, useState} from "react";
+import {AnimatePresence, motion} from "framer-motion";
+import { Courgette } from "next/font/google";
+import Block3 from "@/app/Block3";
+import Block1 from "@/app/Block1";
+import Block2 from "@/app/Block2";
+import DotGrid from "@/app/DotGrid";
+
+const courgette = Courgette({
+  subsets: ["latin"],         // 필요한 문자셋
+  weight: ["400"],     // 사용할 굵기
+});
 
 export default function Home() {
+
+  const [scrollVal, setScrollVal] = useState(0);
+  const [selectedBlock, setSelectedBlock] = useState(-1);
+
   return (
-    <div className="items-center justify-items-center min-h-screen p-8 gap-16 bg-white">
-      <div className={"fixed top-0 w-full h-20 bg-white flex items-center justify-center px-6 z-20"}>
-        <div className={"flex space-x-10 font-black text-2xl"}>
-          Green Bite
-        </div>
-        <div className={"absolute right-10"}>
-          <button className={"rounded-full px-5 py-3 border-[1px] border-[#527B50] text-[#527B50] text-sm font-bold"}>써 보기</button>
-        </div>
+    <div className={"relative w-screen h-screen"} onWheel={(e)=>{
+      if (selectedBlock === -1) {
+        if (scrollVal + e.deltaY < 0) {
+          setScrollVal(0);
+        } else {
+          if (scrollVal + e.deltaY > 500) {
+            setScrollVal(500);
+          } else {
+            setScrollVal(scrollVal + e.deltaY);
+          }
+        }
+      }
+    }}>
+      <div className="flex flex-col items-center justify-items-center min-h-screen gap-16 bg-white fixed w-full">
+
+        { selectedBlock == 1 && <Block1 selectedBlock={selectedBlock} setSelectedBlock={setSelectedBlock} /> }
+        { selectedBlock == 2 && <Block2 selectedBlock={selectedBlock} setSelectedBlock={setSelectedBlock} /> }
+        { selectedBlock == 3 && <Block3 selectedBlock={selectedBlock} setSelectedBlock={setSelectedBlock} />}
+
+        <motion.div className={`flex flex-col items-center max-w-[1200px] h-screen w-[70%] duration-400 ${(selectedBlock == -1) ? "scale-100" : "scale-90 blur-lg"} ${scrollVal > 150 ? "scale-90 blur-lg contrast-100 saturate-100" : "scale-100"}`}>
+          <div className={"w-screen h-screen absolute -z-20"}>
+            <DotGrid
+              dotSize={5}
+              gap={20}
+              baseColor="#f2f2f2"
+              activeColor="#798c78"
+              proximity={120}
+              shockRadius={250}
+              shockStrength={5}
+              resistance={750}
+              returnDuration={1.5}
+            />
+          </div>
+          <div className={"mt-24 text-6xl font-black text-black text-center"}>
+            <p className={"mb-10 text-7xl " + courgette.className}>Green Bite</p>
+            <p>사람과 지구가</p>
+            <p>함께 건강해지는 세상을 만듭니다.</p>
+          </div>
+          <div className={"mt-10 text-lg text-center"}>건강한 식습관을 확산시키며, 모두의 건강을 지키고 지속 가능한 식문화를 만들어 갑니다.</div>
+          <div className={"relative w-full"}>
+            <FirstBlock selectedBlock={selectedBlock} setSelectedBlock={setSelectedBlock} scrollVal={scrollVal} />
+          </div>
+        </motion.div>
       </div>
-      <div className={"flex flex-col items-center max-w-[1200px] h-screen w-[70%]"}>
-        <div className={"mt-40 text-6xl font-black text-black text-center"}>
-          <p>사람과 지구가</p>
-          <p>함께 건강해지는 세상을 만듭니다.</p>
-        </div>
-        <div className={"mt-10 text-lg text-center"}>건강한 식습관을 확산시키며, 모두의 건강을 지키고 지속 가능한 식문화를 만들어 갑니다.</div>
-        {/*<button className={"rounded-full px-7 py-5 bg-[#517A51] text-white font-bold mt-10"}></button>*/}
-        <div className={"mt-16 flex space-x-30 w-full h-[500px]"}>
-          <div className={"flex-1 w-full h-full space-y-20 flex flex-col"}>
-            <div className={"bg-gray-800 rounded-2xl flex-2 text-white flex flex-col items-center justify-center p-5"}>
-              <p className={"font-bold text-2xl text-center"}>100%</p>
-              <p className={"font-bold text-xl text-center"}>Satisfied clients</p>
-              <p className={"text-center mt-10 text-sm"}>People were sdfsdfsdfs dfasdfawqe wfwaeef</p>
-            </div>
-            <div className={"bg-gray-100 rounded-2xl flex-1 flex flex-col items-center justify-center"}>
-              <p className={"font-bold text-2xl text-center"}>24,000+</p>
-              <p className={"text-center text-sm"}>Active reader</p>
-            </div>
-          </div>
-          <div className={"flex-2 h-full"}>
-            <div className={"h-full rounded-2xl relative"}>
-              <Image src={"/plant.jpg"} alt={"plant"} fill className={"object-cover rounded-3xl"} />
-            </div>
-          </div>
-          <div className={"flex-1 h-full space-y-20 flex flex-col"}>
-            <div className={"bg-[#527B50] rounded-2xl flex-2 text-white flex flex-col justify-between p-10 relative"}>
-              <div className={"absolute bottom-0 right-0 bg-blue-200 w-20 h-20"}></div>
-              <p className={"font-bold text-4xl"}>70%</p>
-              <p className={"text-sm"}>People were sdfsdfsdfs dfasdfawqe wfwaeef</p>
-              <div className={"flex space-x-2.5 items-center"}>
-                <div className={""}>Our review</div>
-                <Image src={"arrow-right-circle.svg"} alt={"right arrow"} width={20} height={20} />
-              </div>
-            </div>
-            <div className={"bg-gray-100 rounded-2xl flex-1"}></div>
-          </div>
-        </div>
-      </div>
-      <div className={"w-screen bg-[#F6F6F6] p-36"}>
-        <div className={"min-w-[1200px] flex-col space-y-36"}>
-          <div className={"flex space-x-30 items-center"}>
-            <div className={"flex-4"}>
-              <div className={"h-80 w-full bg-white rounded-2xl relative"}>
-                <Image src={"/vegan_food.jpg"} alt={""} fill className={"rounded-2xl object-cover"} />
-              </div>
-            </div>
-            <div className={"flex-6 space-y-10"}>
-              <p className={"text-4xl font-black"}>맛있는 비건 · 플랜트 베이스드 식품을 찾아보세요.</p>
-              <div className={"flex space-x-10"}>
-                <button className={"rounded-full px-7 py-5 bg-[#517A51] text-white text-xl font-bold"}>구경하러 가기</button>
-                <button className={"rounded-full px-7 py-5 text-black text-xl font-bold flex space-x-3"}>
-                  <div className={"text-gray-700"}>비건 · 플랜트 베이스드 식품이 무엇인가요?</div>
-                  <Image src={"arrow-right.svg"} alt={"right arrow"} width={20} height={20} />
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className={"flex space-x-30"}>
-            <div className={"flex-6"}>
-              <div className={"h-full w-full"}>
-                <p className={"text-4xl font-black"}>우리는 지속가능한 세상을 만들기 위해 일합니다.</p>
-                <p className={"mt-10"}>Events, Campaigns, and Projects for Environmental Sustainability. 플랜트 베이스드 식품은 이런거고, 저런거고, 사실 나도 잘 모름.</p>
-              </div>
-            </div>
-            <div className={"flex-4 space-y-10"}>
-              <div className={"flex space-x-10 text-center"}>
-                <div className={"flex flex-col w-full h-full space-y-5 items-center"}>
-                  <div className={"aspect-square w-full bg-white rounded-2xl relative"}>
-                    <Image src={"sdg3.svg"} alt={""} fill className={"rounded-2xl"} />
-                  </div>
-                  <p>건강과 웰빙</p>
-                </div>
-                <div className={"flex flex-col w-full h-full space-y-5 items-center"}>
-                  <div className={"aspect-square w-full bg-white rounded-2xl relative"}>
-                    <Image src={"sdg12.svg"} alt={""} fill className={"rounded-2xl"} />
-                  </div>
-                  <p>책임 있는 소비와 생산</p>
-                </div>
-                <div className={"flex flex-col w-full h-full space-y-5 items-center"}>
-                  <div className={"aspect-square w-full bg-white rounded-2xl relative"}>
-                    <Image src={"sdg13.svg"} alt={""} fill className={"rounded-2xl"} />
-                  </div>
-                  <p>기후 행동</p>
-                </div>
-                <div className={"flex flex-col w-full h-full space-y-5 items-center"}>
-                  <div className={"aspect-square w-full bg-white rounded-2xl relative"}>
-                    <Image src={"sdg17.svg"} alt={""} fill className={"rounded-2xl"} />
-                  </div>
-                  <p>파트너십</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className={"flex space-x-10"}>
-            <div className={"flex-1 bg-[#E5EAE4] rounded-2xl p-10 flex items-center"}>
-              <div className={"flex flex-col w-[60%]"}>
-                <p className={"text-3xl font-bold"}>Cleaning up the plant</p>
-                <p className={"text-lg mt-10"}>Our team ins actively working to clean up the plant from pollution in order to restore its natural beauty.</p>
-                <button className={"flex space-x-2.5 mt-20"}>
-                  <p className={"font-bold"}>Read More</p>
-                  <Image src={"arrow-right.svg"} alt={"right arrow"} width={20} height={20} />
-                </button>
-              </div>
-            </div>
-            <div className={"w-full flex-1 flex flex-col space-y-10"}>
-              <div className={"flex-1 bg-[#527B50] rounded-2xl text-white p-10 flex flex-col justify-center"}>
-                <div className={"flex flex-col w-[60%]"}>
-                  <p className={"text-2xl font-bold"}>Cleaning up the plant</p>
-                  <p className={"text-sm mt-3"}>Our team ins actively working to clean up the plant from pollution in order to restore its natural beauty.</p>
-                  <button className={"flex space-x-2.5 mt-10"}>
-                    <p className={"font-bold"}>Read More</p>
-                    <Image src={"arrow-right-circle.svg"} alt={"right arrow"} width={20} height={20} />
-                  </button>
-                </div>
-              </div>
-              <div className={"flex-1 bg-[#010101] rounded-2xl text-white p-10 flex flex-col justify-center"}>
-                <div className={"flex flex-col w-[60%]"}>
-                  <p className={"text-2xl font-bold"}>Cleaning up the plant</p>
-                  <p className={"text-sm mt-3"}>Our team ins actively working to clean up the plant from pollution in order to restore its natural beauty.</p>
-                  <button className={"flex space-x-2.5 mt-10"}>
-                    <p className={"font-bold"}>Read More</p>
-                    <Image src={"arrow-right-circle.svg"} alt={"right arrow"} width={20} height={20} />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className={"flex flex-col items-center max-w-[1200px]"}>
-        <p className={"font-black text-4xl p-36"}>Comprehensive Tutorials, Resourceful Insights, and Everyday Tips</p>
-        <div className={"grid w-full h-[500px] grid-cols-3 space-x-2.5 bg-blue-200 relative"}>
-          <div className={"bg-black"}></div>
-          <div className={"bg-black"}></div>
-          <div className={"bg-black"}></div>
-        </div>
-      </div>
+      {
+        scrollVal > 150 && <motion.div className={"fixed w-screen h-screen overflow-y-scroll bg-white flex flex-col px-30 py-20"}
+          layoutId={"box-center"} initial={{ borderRadius: "2rem", bottom: "-100vh" }} animate={{ borderRadius: "none", bottom: "0" }}
+        >
+          <motion.div className={"text-black"}
+            initial={{
+              opacity: 0,
+              translateY: "20px",
+              filter: "blur(10px)",
+            }}
+            animate={{
+              opacity: 1,
+              translateY: "0",
+              filter: "blur(0px)"
+            }}
+            transition={{
+              delay: 0.1
+            }}
+          >
+            <p className={"text-5xl font-black"}>솔루션</p>
+            <p></p>
+          </motion.div>
+        </motion.div>
+      }
     </div>
   );
+}
+
+const FirstBlock = ({ selectedBlock, setSelectedBlock, scrollVal }) => {
+  return <div className={"mt-16 flex space-x-5 w-full h-[500px]"}>
+    <div className={"flex-1 w-full h-full space-y-5 flex flex-col"}>
+      <motion.div className={`bg-gray-100 rounded-2xl flex-1 flex items-center justify-center p-5 cursor-pointer z-10`} layoutId="box-1" onClick={() => {
+        setSelectedBlock(1);
+      }}>
+        {
+          selectedBlock != 1 &&
+          <motion.div
+            initial={{
+              opacity: 0,
+              filter: "blur(10px)",
+            }}
+            animate={{
+              opacity: 1,
+              filter: "blur(0px)",
+            }}
+            transition={{
+              delay: 0.2
+            }}
+            className={"flex flex-col items-center justify-center w-full space-y-5 break-keep text-center"}>
+            <Image src={"/sdgs.png"} alt={"sdgs"} width={70} height={70} />
+            <p className={"font-bold text-2xl"}>지속가능성</p>
+            <p className={"text-sm text-gray-700"}>개인과 지구 모두의 건강을 지키며 지속 가능한 식문화를 만들기 위해 노력해요.</p>
+          </motion.div>
+        }
+      </motion.div>
+      <motion.div className={`bg-gray-100 rounded-2xl flex-1 flex items-center justify-center p-5 cursor-pointer z-10`} layoutId="box-2" onClick={() => {
+        setSelectedBlock(2);
+      }}>
+        {
+          selectedBlock != 2 &&
+          <motion.div
+            initial={{
+              opacity: 0,
+              filter: "blur(10px)",
+            }}
+            animate={{
+              opacity: 1,
+              filter: "blur(0px)",
+            }}
+            transition={{
+              delay: 0.2
+            }}
+            className={"flex flex-col items-center justify-center space-y-5"}>
+            <p className={"text-3xl " + courgette.className}>Green Bite</p>
+            <p className={"font-bold text-2xl"}>프로젝트 소개</p>
+            <div className={"text-sm text-center text-gray-700"}>건강한 식습관을 확산시키며, 모두의 건강을 지키고 지속 가능한 식문화를 만들어 갑니다.</div>
+          </motion.div>
+        }
+      </motion.div>
+    </div>
+    <div className={"flex-2 h-full"}>
+      <motion.div className={"h-full rounded-2xl relative"}>
+        <Image src={"/plant.jpg"} alt={"plant"} fill className={"object-cover rounded-3xl"} />
+      </motion.div>
+    </div>
+
+    <div className={"flex-1 h-full space-y-5 flex flex-col"}>
+      <div className={"rounded-2xl flex-1 text-white flex flex-col justify-between relative h-full"}>
+        <Scalable scale={"0.9"} duration={200} onTap={() => {
+          window.open("https://map.naver.com/")
+        }} className={"h-full"}>
+          <div className={"rounded-2xl flex flex-col justify-between p-10 relative h-full"}>
+            <Image src={"/map-ex.png"} alt={""} fill className={"object-cover rounded-2xl"} />
+            <div className={"rounded-2xl w-full h-full absolute top-0 bottom-0 left-0 right-0 bg-[#2C402B95]"}></div>
+            <p className={"font-bold text-2xl z-10 break-keep"}>비건 식당 찾아보기</p>
+            <p className={"text-sm z-10 break-keep"}>우리 동네 비건 식당을 손쉽게 찾아보세요.</p>
+            <button className={"flex space-x-2.5 items-center z-10"}>
+              <div className={"font-bold"}>지도 보기</div>
+              <Image src={"arrow-right-circle.svg"} alt={"right arrow"} width={20} height={20} />
+            </button>
+          </div>
+        </Scalable>
+      </div>
+      <motion.div className={`bg-gray-100 rounded-2xl flex-1 flex items-center justify-center p-5 cursor-pointer`} layoutId="box-3" onClick={() => {
+        setSelectedBlock(3);
+      }}>
+        {
+          selectedBlock != 3 &&
+          <motion.div
+            initial={{
+              opacity: 0,
+              filter: "blur(10px)",
+            }}
+            animate={{
+              opacity: 1,
+              filter: "blur(0px)",
+            }}
+            transition={{
+              delay: 0.2
+            }}
+            className={"flex flex-col items-center justify-center space-y-5"}>
+            <div className={"flex -space-x-2.5"}>
+              <div className={"rounded-full w-10 h-10 bg-gray-800 relative border-2 border-gray-800"}>
+                <Image src={"/ttuttu.jpeg"} alt={""} fill className={"object-cover rounded-full"} />
+              </div>
+              <div className={"rounded-full w-10 h-10 bg-gray-800 relative border-2 border-gray-800"}>
+                <Image src={"/yangteol.jpeg"} alt={""} fill className={"object-cover rounded-full"} />
+              </div>
+              <div className={"rounded-full w-10 h-10 bg-gray-800 relative border-2 border-gray-800"}>
+                <Image src={"/dodari.jpeg"} alt={""} fill className={"object-cover rounded-full"} />
+              </div>
+            </div>
+            <p className={"font-bold text-2xl"}>식물농장 팀원</p>
+            <div className={"text-sm text-center text-gray-700 break-keep"}>식물농장을 가꾸어나가고 있어요.</div>
+          </motion.div>
+        }
+      </motion.div>
+    </div>
+  </div>;
 }

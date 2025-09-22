@@ -26,3 +26,7 @@ body {
   color: var(--foreground);
   font-family: Pretendard;
 }
+
+button {
+  cursor: pointer;
+}

@@ -10,7 +10,7 @@ const Block3 = ({ selectedBlock, setSelectedBlock }: block3_type) => {
   return <motion.div className={"fixed flex items-center justify-center top-0 left-0 w-full h-full bg-black/30 z-20"}>
     {
       selectedBlock === 3 &&
-      <motion.div className={"w-[60vw] h-fit bg-white z-30 p-10 pb-20 rounded-2xl"} layoutId="box-3" key={"block-3r"}>
+      <motion.div className={"w-[60vw] h-fit bg-white/80 backdrop-brightness-150 backdrop-blur-2xl backdrop-contrast-200 z-30 p-10 pb-20 rounded-2xl"} layoutId="box-3" key={"block-3r"}>
         <motion.div
           initial={{
             opacity: 0,

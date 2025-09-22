@@ -16,7 +16,7 @@ const Block2 = ({ selectedBlock, setSelectedBlock }: block2_type) => {
   return <motion.div className={"fixed flex items-center justify-center top-0 left-0 w-full h-full bg-black/30 z-20"}>
     {
       selectedBlock === 2 &&
-      <motion.div className={"w-[60vw] h-fit bg-white z-30 p-10 pb-20 rounded-2xl max-h-[80vh] overflow-y-scroll"} layoutId="box-2" key={"block-2r"}>
+      <motion.div className={"w-[60vw] h-fit bg-white/80 backdrop-brightness-150 backdrop-blur-2xl backdrop-contrast-200 z-30 p-10 pb-20 rounded-2xl max-h-[80vh] overflow-y-scroll"} layoutId="box-2" key={"block-2r"}>
         <motion.div
           initial={{
             opacity: 0,

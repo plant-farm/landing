@@ -9,10 +9,12 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "apexcharts": "^5.3.5",
     "framer-motion": "^12.23.15",
     "gsap": "^3.13.0",
     "next": "15.5.3",
     "react": "19.1.0",
+    "react-apexcharts": "^1.7.0",
     "react-dom": "19.1.0"
   },
   "devDependencies": {

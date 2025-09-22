@@ -9,6 +9,7 @@ import Block3 from "@/app/Block3";
 import Block1 from "@/app/Block1";
 import Block2 from "@/app/Block2";
 import DotGrid from "@/app/DotGrid";
+import ApexChartExample from "@/app/chart";
 
 const courgette = Courgette({
   subsets: ["latin"],         // 필요한 문자셋
@@ -40,7 +41,7 @@ export default function Home() {
         { selectedBlock == 2 && <Block2 selectedBlock={selectedBlock} setSelectedBlock={setSelectedBlock} /> }
         { selectedBlock == 3 && <Block3 selectedBlock={selectedBlock} setSelectedBlock={setSelectedBlock} />}
 
-        <motion.div className={`flex flex-col items-center max-w-[1200px] h-screen w-[70%] duration-400 ${(selectedBlock == -1) ? "scale-100" : "scale-90 blur-lg"} ${scrollVal > 150 ? "scale-90 blur-lg contrast-100 saturate-100" : "scale-100"}`}>
+        <motion.div className={`flex flex-col items-center justify-center max-w-[1200px] h-screen w-[70%] duration-400 ${(selectedBlock == -1) ? "scale-100" : "scale-90 blur-lg"} ${scrollVal > 150 ? "scale-90 blur-lg contrast-100 saturate-100" : "scale-100"}`}>
           <div className={"w-screen h-screen absolute -z-20"}>
             <DotGrid
               dotSize={5}
@@ -54,8 +55,8 @@ export default function Home() {
               returnDuration={1.5}
             />
           </div>
-          <div className={"mt-24 text-6xl font-black text-black text-center"}>
-            <p className={"mb-10 text-7xl " + courgette.className}>Green Bite</p>
+          <div className={"text-6xl font-black text-black text-center"}>
+            {/*<p className={"mb-10 text-7xl " + courgette.className}>Green Bite</p>*/}
             <p>사람과 지구가</p>
             <p>함께 건강해지는 세상을 만듭니다.</p>
           </div>
@@ -63,11 +64,14 @@ export default function Home() {
           <div className={"relative w-full"}>
             <FirstBlock selectedBlock={selectedBlock} setSelectedBlock={setSelectedBlock} scrollVal={scrollVal} setScrollVal={setScrollVal}/>
           </div>
+          <motion.div className={`w-16 h-8 fixed z-50 duration-300 bottom-5`}>
+            <Image src={"chevron-down.svg"} fill alt={""} className={"object-cover"} />
+          </motion.div>
         </motion.div>
       </div>
       <AnimatePresence>
       {
-        scrollVal > 150 && <motion.div className={"fixed w-screen h-screen overflow-y-scroll bg-white flex flex-col px-30 py-20"}
+        scrollVal > 150 && <motion.div className={"fixed w-screen h-screen overflow-y-scroll bg-white flex flex-col px-30"}
           layoutId={"box-center"} initial={{ borderRadius: "2rem", bottom: "-100vh" }} animate={{ borderRadius: "none", bottom: "0" }} exit={{ bottom: "-100vh" }}
         >
           <motion.div className={"text-black text-lg font-semibold flex flex-col"}
@@ -85,9 +89,21 @@ export default function Home() {
               delay: 0.1
             }}
           >
-            <p className={"text-6xl font-black mb-10 mt-20 text-center"}>비건 식당 찾아보기</p>
+            <div className={"flex mb-10 mt-20 justify-between"}>
+              <div className={"flex space-x-5"}>
+                <button onClick={() => {
+                  setScrollVal(0);
+                }}
+                        className={"w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center"}
+                >
+                  <Image src={"x-mark.svg"} alt={"x-mark"} width={17} height={17} />
+                </button>
+                <p className={"text-4xl font-black text-center"}>비건 식당 찾아보기</p>
+              </div>
+              <input type={"text"} className={"rounded-xl bg-gray-100 px-5"} placeholder={"식당 검색"} />
+            </div>
             <div className={"flex-1"}>
-              <iframe src={"https://map.naver.com/"} className={"w-full h-[60vh] rounded-3xl border-[1px] border-gray-200"}/>
+              <iframe src={"https://map.naver.com/"} className={"w-full h-[70vh] rounded-3xl border-[1px] border-gray-200"}/>
             </div>
             {/*<p>Plant-Farm은 비건·플렉시테리언·건강을 중시하는 소비자와 비건 식당 사장님을 위한 식물성 식품 전용 서비스입니다.</p>*/}
             {/*<p>우리는 단순히 상품을 판매하는 것을 넘어, 탄소 절감·건강 점수·지역 비건 식당 네트워크를 연결하여</p>*/}
@@ -192,9 +208,13 @@ type firstBlockType = {
 const FirstBlock = ({ selectedBlock, setSelectedBlock, scrollVal, setScrollVal }: firstBlockType) => {
   return <div className={"mt-16 flex space-x-5 w-full h-[500px]"}>
     <div className={"flex-1 w-full h-full space-y-5 flex flex-col"}>
-      <motion.div className={`bg-gray-100 rounded-2xl flex-1 flex items-center justify-center p-5 cursor-pointer z-10`} layoutId="box-1" onClick={() => {
+      <motion.div className={`bg-gray-100 rounded-2xl flex-1 flex items-center justify-center p-5 cursor-pointer z-10 relative`} layoutId="box-1" onClick={() => {
         setSelectedBlock(1);
       }}>
+        <div className={"absolute top-0 left-0 w-full h-full rounded-2xl"}>
+          <Image src={"/sdgs.png"} alt={""} fill className={"object-cover rounded-2xl"} />
+          <div className={"absolute top-0 left-0 w-full h-full backdrop-blur-2xl rounded-2xl bg-gray-200/40"}></div>
+        </div>
         {
           selectedBlock != 1 &&
           <motion.div
@@ -216,9 +236,13 @@ const FirstBlock = ({ selectedBlock, setSelectedBlock, scrollVal, setScrollVal }
           </motion.div>
         }
       </motion.div>
-      <motion.div className={`bg-gray-100 rounded-2xl flex-1 flex items-center justify-center p-5 cursor-pointer z-10`} layoutId="box-2" onClick={() => {
+      <motion.div className={`bg-gray-100 rounded-2xl flex-1 flex items-center justify-center cursor-pointer z-10 relative `} layoutId="box-2" onClick={() => {
         setSelectedBlock(2);
       }}>
+        <div className={"absolute top-0 left-0 w-full h-full rounded-2xl"}>
+          <Image src={"/plant.jpg"} alt={""} fill className={"object-cover rounded-2xl"} />
+          <div className={"absolute top-0 left-0 w-full h-full backdrop-blur-2xl rounded-2xl bg-white/60"}></div>
+        </div>
         {
           selectedBlock != 2 &&
           <motion.div
@@ -233,7 +257,7 @@ const FirstBlock = ({ selectedBlock, setSelectedBlock, scrollVal, setScrollVal }
             transition={{
               delay: 0.2
             }}
-            className={"flex flex-col items-center justify-center space-y-5"}>
+            className={"flex flex-col items-center justify-center space-y-5 relative p-5"}>
             <p className={"text-3xl " + courgette.className}>Green Bite</p>
             <p className={"font-bold text-2xl"}>프로젝트 소개</p>
             <div className={"text-sm text-center text-gray-700"}>건강한 식습관을 확산시키며, 모두의 건강을 지키고 지속 가능한 식문화를 만들어 갑니다.</div>
@@ -242,19 +266,26 @@ const FirstBlock = ({ selectedBlock, setSelectedBlock, scrollVal, setScrollVal }
       </motion.div>
     </div>
     <div className={"flex-2 h-full"}>
-      <motion.div className={"h-full rounded-2xl relative"}>
-        <Image src={"/plant.jpg"} alt={"plant"} fill className={"object-cover rounded-3xl"} />
+      <motion.div className={"h-full rounded-2xl relative border-[1px] border-gray-200 bg-white flex items-center justify-center"}>
+        {/*<Image src={"/plant.jpg"} alt={"plant"} fill className={"object-cover rounded-3xl"} />*/}
+        <div className={"w-[80%]"}>
+          <ApexChartExample />
+          <p className={"font-bold text-lg text-gray-500 text-center mt-5"}>유료 고객 유치 계획 (3년간)</p>
+        </div>
       </motion.div>
     </div>
 
     <div className={"flex-1 h-full space-y-5 flex flex-col"}>
-      <div className={"rounded-2xl flex-1 text-white flex flex-col justify-between relative h-full"}>
+      <div className={"rounded-2xl flex-1 text-black flex flex-col justify-between relative h-full"}>
         <Scalable scale={"0.9"} duration={200} onTap={() => {
           setScrollVal(160);
         }} className={"h-full"}>
-          <div className={"rounded-2xl flex flex-col justify-between p-10 relative h-full items-center"}>
+          <div className={"absolute top-0 left-0 w-full h-full rounded-2xl"}>
             <Image src={"/map-ex.png"} alt={""} fill className={"object-cover rounded-2xl"} />
-            <div className={"rounded-2xl w-full h-full absolute top-0 bottom-0 left-0 right-0 bg-[#2C402B95]"}></div>
+            <div className={"absolute top-0 left-0 w-full h-full backdrop-blur-2xl rounded-2xl bg-gray-200/60"}></div>
+          </div>
+          <div className={"rounded-2xl flex flex-col justify-between p-10 relative h-full items-center"}>
+            <div className={"rounded-2xl w-full h-full absolute top-0 bottom-0 left-0 right-0"}></div>
             <p className={"font-bold text-2xl z-10 break-keep"}>비건 식당 찾아보기</p>
             <p className={"text-sm z-10 break-keep text-center"}>우리 동네 비건 식당을 손쉽게 찾아보세요.</p>
             <button className={"flex space-x-2.5 items-center z-10"}>
@@ -264,9 +295,13 @@ const FirstBlock = ({ selectedBlock, setSelectedBlock, scrollVal, setScrollVal }
           </div>
         </Scalable>
       </div>
-      <motion.div className={`bg-gray-100 rounded-2xl flex-1 flex items-center justify-center p-5 cursor-pointer`} layoutId="box-3" onClick={() => {
+      <motion.div className={`bg-gray-100 rounded-2xl flex-1 flex items-center justify-center p-5 cursor-pointer relative`} layoutId="box-3" onClick={() => {
         setSelectedBlock(3);
       }}>
+        <div className={"absolute top-0 left-0 w-full h-full rounded-2xl"}>
+          <Image src={"/ttuttu.jpeg"} alt={""} fill className={"object-cover rounded-2xl"} />
+          <div className={"absolute top-0 left-0 w-full h-full backdrop-blur-2xl rounded-2xl bg-gray-200/80"}></div>
+        </div>
         {
           selectedBlock != 3 &&
           <motion.div

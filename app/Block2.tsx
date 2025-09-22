@@ -61,44 +61,24 @@ const Block2 = ({ selectedBlock, setSelectedBlock }: block2_type) => {
                 </div>
               </div>
               <p className={"text-3xl " + courgette.className}>Green Bite</p>
-              <p className={"font-black text-4xl pt-10 pb-5 text-center"}>프로젝트 배경</p>
-              <div className={"flex flex-col space-y-2"}>
-                <div className={"flex items-center space-x-2"}>
-                  <NumberBlock number={1} />
-                  <p>WHO는 가공육을 1급 발암물질, 적색육을 2급 발암물질로 분류했어요.</p>
+              <div className={"flex flex-col space-y-2 font-bold text-gray-700 text-xl items-center"}>
+                <div className={"flex justify-center pt-10 w-full items-center"}>
+                  <Image src={"triangle.svg"} alt={""} width={30} height={30} />
+                  <div className={"w-fit mr-10 text-black font-black text-4xl ml-3"}>문제</div>
+                  <div className={"w-fit flex flex-col"}>
+                    <p>· WHO 가공육 1급 발암물질, 적색육 2급 발암물질로 분류</p>
+                    <p>· 한국 사회에서 비건·식물성 식품 접근성·인지도 낮음</p>
+                    <p>· 기존 이커머스에서는 비건 제품 가격 부담·선택지 제한</p>
+                    <p>· 비건 식당 수 부족, 소비자가 찾기 어려움</p>
+                    <p>· 사회적으로 비건에 대한 오해·편견</p>
+                  </div>
                 </div>
-                <div className={"flex items-center space-x-2"}>
-                  <NumberBlock number={2} />
-                  <p>한국 사회에서 비건·식물성 식품은 접근성·인지도가 낮아요.</p>
-                </div>
-                <div className={"flex items-center space-x-2"}>
-                  <NumberBlock number={3} />
-                  <p>기존 이커머스에서는 비건 제품이 비싸거나 선택지가 제한적이에요.</p>
-                </div>
-                <div className={"flex items-center space-x-2"}>
-                  <NumberBlock number={4} />
-                  <p>비건 식당 수도 부족하며, 소비자가 쉽게 찾기 어려워요.</p>
-                </div>
-                <div className={"flex items-center space-x-2"}>
-                  <NumberBlock number={5} />
-                  <p>사회적으로 비건에 대한 오해·편견이 존재해요.</p>
-                </div>
-                <p className={"font-black text-4xl pb-5 pt-15 text-center"}>문제 해결</p>
-                <div className={"flex items-center space-x-2"}>
-                  <NumberBlock number={1} />
-                  <p>식물성 식품 전용 이커머스</p>
-                </div>
-                <div className={"flex items-center space-x-2"}>
-                  <NumberBlock number={2} />
-                  <p>탄소 절감 점수 + 건강 점수 제공</p>
-                </div>
-                <div className={"flex items-center space-x-2"}>
-                  <NumberBlock number={3} />
-                  <p>랭킹 기능 → 환경 기여도 게이미피케이션 + 식당 홍보 연계</p>
-                </div>
-                <div className={"flex items-center space-x-2"}>
-                  <NumberBlock number={4} />
-                  <p>비건 식당 지도 서비스 → 100%/80% 라벨링 포함</p>
+                <p className={"font-black text-6xl pb-5 pt-5 text-center text-gray-700"}>↓</p>
+                <div className={"flex space-x-5"}>
+                  <SolutionBlock text={"식물성 식품 전용 이커머스"} index={1} />
+                  <SolutionBlock text={"탄소 절감 점수 + 건강 점수 제공"} index={2} />
+                  <SolutionBlock text={"랭킹 기능, 식당 홍보 연계"} index={3} />
+                  <SolutionBlock text={"비건 식당 지도 서비스"} index={4} />
                 </div>
               </div>
             </div>
@@ -117,5 +97,17 @@ type numberBlockType = {
 const NumberBlock = ({number}: numberBlockType) => {
   return <div className={"flex items-center justify-center w-7 h-7 bg-gray-200 font-bold text-[#517A51] rounded-lg"}>
     <p>{number}</p>
+  </div>
+}
+
+type solutionBlockType = {
+  index: number;
+  text: string
+}
+
+const SolutionBlock = ({ index, text }: solutionBlockType) => {
+  return <div className={"flex flex-col space-y-2.5 w-40 aspect-square text-black bg-gray-100 break-keep rounded-2xl font-bold p-5 text-lg justify-center"}>
+    <div className={"flex items-center justify-center w-7 text-white aspect-square bg-gray-800 rounded-full font-bold text-sm"}>{index}</div>
+    <p>{text}</p>
   </div>
 }

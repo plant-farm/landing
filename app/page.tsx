@@ -93,7 +93,13 @@ export default function Home() {
   );
 }
 
-const FirstBlock = ({ selectedBlock, setSelectedBlock, scrollVal }) => {
+type firstBlockType = {
+  selectedBlock: number;
+  setSelectedBlock: (x: number) => void;
+  scrollVal: number;
+}
+
+const FirstBlock = ({ selectedBlock, setSelectedBlock, scrollVal }: firstBlockType) => {
   return <div className={"mt-16 flex space-x-5 w-full h-[500px]"}>
     <div className={"flex-1 w-full h-full space-y-5 flex flex-col"}>
       <motion.div className={`bg-gray-100 rounded-2xl flex-1 flex items-center justify-center p-5 cursor-pointer z-10`} layoutId="box-1" onClick={() => {

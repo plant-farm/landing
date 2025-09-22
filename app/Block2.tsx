@@ -111,7 +111,10 @@ const Block2 = ({ selectedBlock, setSelectedBlock }: block2_type) => {
 
 export default Block2;
 
-const NumberBlock = ({number}) => {
+type numberBlockType = {
+  number: number
+}
+const NumberBlock = ({number}: numberBlockType) => {
   return <div className={"flex items-center justify-center w-7 h-7 bg-gray-200 font-bold text-[#517A51] rounded-lg"}>
     <p>{number}</p>
   </div>

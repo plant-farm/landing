@@ -34,7 +34,7 @@ const Block3 = ({ selectedBlock, setSelectedBlock }: block3_type) => {
                 >
                   <Image src={"x-mark.svg"} alt={"x-mark"} width={17} height={17} />
                 </button>
-                <div className={"flex space-x-2.5 items-center"}>
+                <div className={"flex space-x-5 items-center"}>
                   <button onClick={() => {
                     setSelectedBlock(2);
                   }}
@@ -50,7 +50,8 @@ const Block3 = ({ selectedBlock, setSelectedBlock }: block3_type) => {
                   </button>
                 </div>
               </div>
-              <p className={"font-black text-4xl pb-20 text-center"}>식물농장에서 함께 일하고 있어요</p>
+              <Image src={"fire.svg"} alt={""} width={50} height={50} />
+              <p className={"font-black text-4xl pb-20 pt-10 text-center"}>식물농장에서 함께 일하고 있어요</p>
               <div className={"flex w-full space-x-5 relative justify-center text-center"}>
                 <div className={"flex flex-col items-center w-40"}>
                   <div className={"bg-black w-40 aspect-square rounded-full relative"}>

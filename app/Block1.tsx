@@ -35,7 +35,7 @@ const Block1 = ({ selectedBlock, setSelectedBlock }: block1_type) => {
                 >
                   <Image src={"x-mark.svg"} alt={"x-mark"} width={17} height={17} />
                 </button>
-                <div className={"flex space-x-2.5 items-center"}>
+                <div className={"flex space-x-5 items-center"}>
                   <button
                     className={"w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center"}
                   >

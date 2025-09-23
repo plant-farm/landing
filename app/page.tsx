@@ -64,7 +64,12 @@ export default function Home() {
           <div className={"relative w-full"}>
             <FirstBlock selectedBlock={selectedBlock} setSelectedBlock={setSelectedBlock} scrollVal={scrollVal} setScrollVal={setScrollVal}/>
           </div>
-          <motion.div className={`w-16 h-8 fixed z-50 duration-300 bottom-5`}>
+          <motion.div className={"fixed z-50 duration-300 bottom-15 font-bold text-gray-500"}>
+            비건 식당 찾아보기
+          </motion.div>
+          <motion.div className={`w-16 h-8 fixed z-50 duration-300 bottom-5 cursor-pointer`} onClick={() => {
+            setScrollVal(160);
+          }}>
             <Image src={"chevron-down.svg"} fill alt={""} className={"object-cover"} />
           </motion.div>
         </motion.div>
